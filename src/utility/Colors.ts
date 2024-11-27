@@ -1,6 +1,6 @@
 
 
-export const Colors={
+export const Colors:Record<string, string>={
     TRACK_DISABLE_COLOR:'#767577',
     TRACK_ENABLE_COLOR:'#81b0ff',
     THUMB_DISABLE_COLOR:'#f4f3f4',

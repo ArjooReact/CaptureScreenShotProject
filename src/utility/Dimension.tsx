@@ -1,4 +1,4 @@
-const Dimension={
+const Dimension:Record<string, number>={
  PreviewImage2Dimen:100,
  PreviewImageDimen:200,
  CustomButtonWidth:160,
