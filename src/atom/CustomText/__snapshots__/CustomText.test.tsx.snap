@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`all mock testcase for matching Snapshot==> 1`] = `
+<Text
+  style={
+    {
+      "color": "#ffffff",
+      "fontSize": 16,
+    }
+  }
+>
+  Submit
+</Text>
+`;

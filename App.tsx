@@ -1,118 +1,62 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {useRef, useState} from 'react';
+import {View} from 'react-native';
+import ViewShot from 'react-native-view-shot';
+import CustomToggleSwitch from './src/atom/CustomToggleSwitch/CustomToggleSwitch';
+import CustomModal from './src/atom/CustomModal/CustomModal';
+import CustomImage from './src/atom/CustomImage/CustomImage';
+import ModalView from './src/molecule/ModalScreenView/ModalView';
+import styles from './AppStyles';
+import {PostDataType} from './src/molecule/ModalScreenView/ModalViewType';
+import DeviceInfoHOC from './src/HOC/DeviceInfoHOC';
+export interface AppType {
+  title?: string;
+  deficeInfoData: PostDataType;
+}
+const App: React.FC<AppType> = ({deficeInfoData}) => {
+  const viewShot = useRef<any>(null);
+  const [uri, setUri] = useState<string>('');
+  //For First App Launch Crash inside useState first put true and save secondly put false and save after that it works fine
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const captureScreen = () => {
+    viewShot.current.capture().then((uri: any) => {
+      setUri(uri);
+    });
+  };
+  const onClickingToggle = async () => {
+    try {
+      if (!isEnabled) captureScreen();
+      else setUri('');
+    } catch (error: any) {
+      setIsEnabled(false);
+    }
+  };
+  const toggleSwitch = () => {
+    setModalVisible(!isModalVisible);
+    setIsEnabled(previousState => !previousState);
+  };
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <ViewShot ref={viewShot} style={styles.viewShotStyle}>
+        <CustomImage />
+      </ViewShot>
+      <CustomToggleSwitch
+        toggleSwitch={toggleSwitch}
+        onChange={onClickingToggle}
+        isEnabled={isEnabled}></CustomToggleSwitch>
+      {uri ? (
+        <CustomModal isModalVisible={isModalVisible}>
+          <ModalView
+            toggleSwitch={toggleSwitch}
+            onChange={onClickingToggle}
+            isEnabled={isEnabled}
+            postData={deficeInfoData}
+            uri={uri}></ModalView>
+        </CustomModal>
+      ) : null}
     </View>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+};
+export default DeviceInfoHOC(App);

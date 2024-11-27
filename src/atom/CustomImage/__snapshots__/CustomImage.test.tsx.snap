@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`all mock testcase for matching customImage Snapshot==> 1`] = `
+<Image
+  resizeMode="contain"
+  source={
+    {
+      "uri": "imagePath",
+    }
+  }
+  style={
+    {
+      "backgroundColor": "#ffffff",
+      "height": 200,
+      "width": 200,
+    }
+  }
+/>
+`;
+
+exports[`all mock testcase for matching customModal Snapshot==> 1`] = `
+<Image
+  resizeMode="contain"
+  source={
+    {
+      "uri": "imagePath",
+    }
+  }
+  style={
+    {
+      "backgroundColor": "#ffffff",
+      "height": 200,
+      "width": 200,
+    }
+  }
+/>
+`;

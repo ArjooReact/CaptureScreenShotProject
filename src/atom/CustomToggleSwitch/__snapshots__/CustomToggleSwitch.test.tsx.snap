@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`all mock testcase for matching customImage Snapshot==> 1`] = `
+<RCTSwitch
+  accessibilityRole="switch"
+  onChange={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  onTintColor="#81b0ff"
+  style={
+    [
+      {
+        "height": 31,
+        "width": 51,
+      },
+      {
+        "backgroundColor": "#3e3e3e",
+        "borderRadius": 16,
+      },
+    ]
+  }
+  thumbTintColor="#f5dd4b"
+  tintColor="#767577"
+  value={true}
+/>
+`;
+
+exports[`all mock testcase for matching customToggleSwitch Snapshot==> 1`] = `
+<RCTSwitch
+  accessibilityRole="switch"
+  onChange={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  onTintColor="#81b0ff"
+  style={
+    [
+      {
+        "height": 31,
+        "width": 51,
+      },
+      {
+        "backgroundColor": "#3e3e3e",
+        "borderRadius": 16,
+      },
+    ]
+  }
+  thumbTintColor="#f5dd4b"
+  tintColor="#767577"
+  value={true}
+/>
+`;
